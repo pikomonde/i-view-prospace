@@ -24,9 +24,13 @@ func main() {
 	sPars.Parse("pish pish Iron is 3910 Credits")
 	sPars.Parse("lolo kkkk Porridge is 123 Credits")
 
-	fmt.Println(sPars.ServiceResource.GetResourcePrice(sPars.ServiceTransnum.MustGalaticToInt([]string{"glob", "prok"}), "Silver"))
-	fmt.Println(sPars.ServiceResource.GetResourcePrice(sPars.ServiceTransnum.MustGalaticToInt([]string{"glob", "prok"}), "Gold"))
-	fmt.Println(sPars.ServiceResource.GetResourcePrice(sPars.ServiceTransnum.MustGalaticToInt([]string{"glob", "prok"}), "Iron"))
+	fmt.Println(sPars.Parse("how much is pish tegj glob glob ?"))
+
+	fmt.Println(sPars.Parse("how many Credits is glob prok Silver ?"))
+	fmt.Println(sPars.Parse("how many Credits is glob prok Gold ?"))
+	fmt.Println(sPars.Parse("how many Credits is glob prok Iron ?"))
+
+	fmt.Println(sPars.Parse("how much wood could a woodchuck chuck if a woodchuck could chuck wood ?"))
 
 	// setup delivery
 
