@@ -1,6 +1,12 @@
 package transnum
 
-// ServiceTransnum contains galactic, roman, and decimal numerals related services
-type ServiceTransnum struct {
+type serviceTransnum struct {
 	Dict dictionary
+}
+
+// New returns serviceTransnum service
+func New() *serviceTransnum {
+	s := serviceTransnum{}
+	s.Dict = make(dictionary)
+	return &s
 }

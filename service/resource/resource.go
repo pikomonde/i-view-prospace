@@ -1,10 +1,7 @@
 package resource
 
 // AddResourcePrice is used to add resource's price to database
-func (s *ServiceResource) AddResourcePrice(resourceName string, resourceNum, credits int) error {
-	if s.Dict == nil {
-		s.Dict = make(dictionary)
-	}
+func (s *serviceResource) AddResourcePrice(resourceName string, resourceNum, credits int) error {
 	if resourceNum == 0 {
 		return ErrInvalidZeroResourceUnit
 	}
@@ -13,10 +10,7 @@ func (s *ServiceResource) AddResourcePrice(resourceName string, resourceNum, cre
 }
 
 // GetResourcePrice is used to get resource's price to database
-func (s *ServiceResource) GetResourcePrice(resourceNum int, resourceName string) (float64, error) {
-	if s.Dict == nil {
-		s.Dict = make(dictionary)
-	}
+func (s *serviceResource) GetResourcePrice(resourceNum int, resourceName string) (float64, error) {
 	resourcePrice, ok := s.Dict[resourceName]
 	if !ok {
 		return 0, ErrNoResourceFound

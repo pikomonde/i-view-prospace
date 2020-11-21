@@ -1,7 +1,7 @@
 package transnum
 
 // RomanToInt is used to translate roman numeric in string to integer
-func (s *ServiceTransnum) RomanToInt(str string) int {
+func (s *serviceTransnum) RomanToInt(str string) int {
 	prevCharVal := 0
 	total := 0
 	for i := len(str) - 1; i >= 0; i-- {
@@ -17,7 +17,7 @@ func (s *ServiceTransnum) RomanToInt(str string) int {
 }
 
 // GalaticToInt is used to translate galactic unit in array to integer
-func (s *ServiceTransnum) GalaticToInt(words []string) (int, error) {
+func (s *serviceTransnum) GalaticToInt(words []string) (int, error) {
 	prevCharVal := 0
 	total := 0
 	for i := len(words) - 1; i >= 0; i-- {
@@ -37,13 +37,13 @@ func (s *ServiceTransnum) GalaticToInt(words []string) (int, error) {
 }
 
 // MustGalaticToInt similar to GalaticToInt, but not returning error
-func (s *ServiceTransnum) MustGalaticToInt(words []string) int {
+func (s *serviceTransnum) MustGalaticToInt(words []string) int {
 	res, _ := s.GalaticToInt(words)
 	return res
 }
 
 // IsRomanChar is used to check whether a character is roman or not
-func (s *ServiceTransnum) IsRomanChar(r rune) bool {
+func (s *serviceTransnum) IsRomanChar(r rune) bool {
 	if (roman(r) == romanI) ||
 		(roman(r) == romanV) ||
 		(roman(r) == romanX) ||
@@ -57,12 +57,9 @@ func (s *ServiceTransnum) IsRomanChar(r rune) bool {
 }
 
 // AddGalacticUnit is used to add galactic unit to database
-func (s *ServiceTransnum) AddGalacticUnit(galacticUnit string, r rune) error {
+func (s *serviceTransnum) AddGalacticUnit(galacticUnit string, r rune) error {
 	if !s.IsRomanChar(r) {
 		return ErrInvalidRoman
-	}
-	if s.Dict == nil {
-		s.Dict = make(dictionary)
 	}
 	s.Dict[galacticUnit] = roman(r)
 	return nil

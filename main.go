@@ -14,13 +14,13 @@ func main() {
 	// setup repository
 
 	// setup service
-	sTnum := servTnum.ServiceTransnum{}
+	sTnum := servTnum.New()
 	sTnum.AddGalacticUnit("glob", 'I')
 	sTnum.AddGalacticUnit("prok", 'V')
 	sTnum.AddGalacticUnit("pish", 'X')
 	sTnum.AddGalacticUnit("tegj", 'L')
 
-	sRsrc := servRsrc.ServiceResource{}
+	sRsrc := servRsrc.New()
 	sRsrc.AddResourcePrice("Silver", sTnum.MustGalaticToInt([]string{"glob", "glob"}), 34)
 	sRsrc.AddResourcePrice("Gold", sTnum.MustGalaticToInt([]string{"glob", "prok"}), 57800)
 	sRsrc.AddResourcePrice("Iron", sTnum.MustGalaticToInt([]string{"pish", "pish"}), 3910)

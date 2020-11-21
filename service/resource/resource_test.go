@@ -27,8 +27,8 @@ func get() {
 }
 
 func TestAddResourcePrice(t *testing.T) {
-	sRes := resource.ServiceResource{}
-	sResError := resource.ServiceResource{}
+	sRes := resource.New()
+	sResError := resource.New()
 
 	// Positive testing
 	for k, v := range getResourcePrices() {
@@ -46,7 +46,7 @@ func TestAddResourcePrice(t *testing.T) {
 }
 
 func TestGetResourcePrice(t *testing.T) {
-	sRes := resource.ServiceResource{}
+	sRes := resource.New()
 	for k, v := range getResourcePrices() {
 		sRes.AddResourcePrice(k, v[0], v[1])
 	}
@@ -67,7 +67,7 @@ func TestGetResourcePrice(t *testing.T) {
 }
 
 func TestGetResourcePriceNotInit(t *testing.T) {
-	sRes := resource.ServiceResource{}
+	sRes := resource.New()
 	total, err := sRes.GetResourcePrice(10, "-")
 	assert.Equal(t, float64(0), total)
 	assert.Equal(t, resource.ErrNoResourceFound, err)
