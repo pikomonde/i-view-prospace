@@ -27,6 +27,7 @@ func testCases() [][2]string {
 		{"lolo kkkk Porridge is 123 Credits", defaultUnexpectedInput},
 		{"glob Porridge is ddd Credits", defaultUnexpectedInput},
 		{"how much is eee fff ggg ?", defaultUnexpectedInput},
+		{"Iron is 3910 Credits", defaultUnexpectedInput},
 		{"how many Credits is eee fff ggg Porridge ?", defaultUnexpectedInput},
 		{"how many Credits is glob Porridge ?", defaultUnexpectedInput},
 		{"aaa bbb is M", defaultUnexpectedInput},

@@ -27,7 +27,7 @@ func (s *ServiceParser) Parse(in string) string {
 		}
 
 		return ""
-	} else if (len(leftIn) >= 2) && (len(rightIn) == 2) && (rightIn[len(rightIn)-1] == defaultCreditsKeyword) {
+	} else if (len(leftIn) >= 1) && (len(rightIn) == 2) && (rightIn[len(rightIn)-1] == defaultCreditsKeyword) {
 		// Translate Galactic unit to decimal
 		unit, err := s.ServiceTransnum.GalaticToInt(leftIn[:len(leftIn)-1])
 		if err != nil {
@@ -40,9 +40,11 @@ func (s *ServiceParser) Parse(in string) string {
 			return defaultUnexpectedInput
 		}
 
-		// Add price to dictionary. Don't need to check error, Unit should never be 0, because the
-		// value is from GalaticToInt's service
-		s.ServiceResource.AddResourcePrice(leftIn[len(leftIn)-1], unit, int(price))
+		// Add price to dictionary
+		err = s.ServiceResource.AddResourcePrice(leftIn[len(leftIn)-1], unit, int(price))
+		if err != nil {
+			return defaultUnexpectedInput
+		}
 
 		return ""
 	} else if (strings.Join(leftIn, " ") == defaultQueryTransnumKeyword) && (rightIn[len(rightIn)-1] == defaultQuestionMarkKeyword) {
