@@ -19,3 +19,18 @@ func Error(fields Fields, err error) error {
 	log.WithFields(log.Fields(fields)).Errorf("%s:%d %s: %v\n", frame.File, frame.Line, frame.Function, err)
 	return err
 }
+
+// Print implement logrus's logrus.Print
+func Print(args ...interface{}) {
+	log.Print(args...)
+}
+
+// Println implement logrus's logrus.Println
+func Println(args ...interface{}) {
+	log.Println(args...)
+}
+
+// Printf implement logrus's logrus.Printf
+func Printf(args ...interface{}) {
+	log.Println(args...)
+}

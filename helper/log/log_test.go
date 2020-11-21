@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestLog(t *testing.T) {
+func TestError(t *testing.T) {
 	fields01 := log.Fields{
 		"testKey01": "testValue01",
 	}
@@ -32,5 +32,19 @@ func TestLog(t *testing.T) {
 	assert.NotPanics(t, func() {
 		err := log.Error(nil, nil)
 		assert.Equal(t, err, nil)
+	})
+}
+
+func TestPrint(t *testing.T) {
+	assert.NotPanics(t, func() {
+		log.Print()
+	})
+
+	assert.NotPanics(t, func() {
+		log.Printf()
+	})
+
+	assert.NotPanics(t, func() {
+		log.Println()
 	})
 }
