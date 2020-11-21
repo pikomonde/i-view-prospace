@@ -17,13 +17,13 @@ func (s *ServiceTransnum) RomanToInt(str string) int {
 }
 
 // GalaticToInt is used to translate galactic unit in array to integer
-func (s *ServiceTransnum) GalaticToInt(words []string) int {
+func (s *ServiceTransnum) GalaticToInt(words []string) (int, error) {
 	prevCharVal := 0
 	total := 0
 	for i := len(words) - 1; i >= 0; i-- {
 		curChar, ok := s.Dict[words[i]]
 		if !ok {
-			return 0
+			return 0, ErrInvalidGalacticUnit
 		}
 		curCharVal := roman(curChar).Int()
 		if curCharVal >= prevCharVal {
@@ -33,7 +33,7 @@ func (s *ServiceTransnum) GalaticToInt(words []string) int {
 		}
 		prevCharVal = curCharVal
 	}
-	return total
+	return total, nil
 }
 
 // IsRomanChar is used to check whether a character is roman or not

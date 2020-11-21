@@ -22,6 +22,7 @@ func main() {
 	fmt.Println(sr.GalaticToInt([]string{"glob", "glob"}))
 	fmt.Println(sr.GalaticToInt([]string{"glob", "prok"}))
 	fmt.Println(sr.GalaticToInt([]string{"pish", "pish"}))
+	fmt.Println(sr.GalaticToInt([]string{"lolo", "kkkk"}))
 
 	// setup delivery
 

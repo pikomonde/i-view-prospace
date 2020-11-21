@@ -45,7 +45,12 @@ func testCasesRoman() map[string]int {
 		"MDCCXCIV":  1794,
 		"MMDCXV":    2615,
 		"MMMCMXCIX": 3999,
-		"-":         0,
+	}
+}
+
+func testCasesErrorRoman() map[string]int {
+	return map[string]int{
+		"-": 0,
 	}
 }
 
@@ -75,7 +80,14 @@ func getErrorDict() map[string]rune {
 
 func TestRomanToInt(t *testing.T) {
 	sNum := transnum.ServiceTransnum{}
+
+	// Positive testing
 	for k, v := range testCasesRoman() {
+		assert.Equal(t, v, sNum.RomanToInt(k))
+	}
+
+	// Negative testing
+	for k, v := range testCasesErrorRoman() {
 		assert.Equal(t, v, sNum.RomanToInt(k))
 	}
 }
@@ -91,12 +103,26 @@ func TestGalacticToInt(t *testing.T) {
 		dictReverse[v] = k
 	}
 
+	// Positive testing
 	for k, v := range testCasesRoman() {
 		words := make([]string, 0)
 		for _, w := range k {
 			words = append(words, dictReverse[w])
 		}
-		assert.Equal(t, v, sNum.GalaticToInt(words))
+		res, err := sNum.GalaticToInt(words)
+		assert.Equal(t, v, res)
+		assert.Equal(t, nil, err)
+	}
+
+	// Negative testing
+	for k, v := range testCasesErrorRoman() {
+		words := make([]string, 0)
+		for _, w := range k {
+			words = append(words, dictReverse[w])
+		}
+		res, err := sNum.GalaticToInt(words)
+		assert.Equal(t, v, res)
+		assert.Equal(t, transnum.ErrInvalidGalacticUnit, err)
 	}
 }
 
