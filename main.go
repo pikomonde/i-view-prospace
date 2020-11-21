@@ -10,13 +10,13 @@ func main() {
 	logrus.SetLevel(logrus.InfoLevel)
 
 	// setup repository
+	// note: use this if need to connect to db or other microservice
 
 	// setup service
 	sPars := servPars.New()
 
 	// setup delivery
 	d := delivery.New(delivery.Opt{
-		IsService:     true,
 		ServiceParser: sPars,
 	})
 	d.Start()

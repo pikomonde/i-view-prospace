@@ -12,13 +12,11 @@ import (
 
 // Delivery contains on the app's delivery
 type Delivery struct {
-	Cli       *cli.Cli
-	IsService bool
+	Cli *cli.Cli
 }
 
 // Opt is used as an option for the app
 type Opt struct {
-	IsService     bool
 	ServiceParser *servPars.ServiceParser
 }
 
@@ -32,8 +30,7 @@ func New(opt Opt) *Delivery {
 	}
 
 	return &Delivery{
-		Cli:       &cli,
-		IsService: opt.IsService,
+		Cli: &cli,
 	}
 }
 
@@ -41,12 +38,10 @@ func New(opt Opt) *Delivery {
 func (d *Delivery) Start() {
 	go d.Cli.Start()
 
-	if d.IsService {
-		term := make(chan os.Signal)
-		signal.Notify(term, syscall.SIGINT, syscall.SIGTERM)
-		select {
-		case <-term:
-			log.Println("Exiting gracefully...")
-		}
+	term := make(chan os.Signal)
+	signal.Notify(term, syscall.SIGINT, syscall.SIGTERM)
+	select {
+	case <-term:
+		log.Println("Exiting gracefully...")
 	}
 }
