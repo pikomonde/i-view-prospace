@@ -36,6 +36,12 @@ func (s *ServiceTransnum) GalaticToInt(words []string) (int, error) {
 	return total, nil
 }
 
+// MustGalaticToInt similar to GalaticToInt, but not returning error
+func (s *ServiceTransnum) MustGalaticToInt(words []string) int {
+	res, _ := s.GalaticToInt(words)
+	return res
+}
+
 // IsRomanChar is used to check whether a character is roman or not
 func (s *ServiceTransnum) IsRomanChar(r rune) bool {
 	if (roman(r) == romanI) ||

@@ -3,7 +3,8 @@ package main
 import (
 	"fmt"
 
-	tnService "github.com/pikomonde/i-view-prospace/service/transnum"
+	servRsrc "github.com/pikomonde/i-view-prospace/service/resource"
+	servTnum "github.com/pikomonde/i-view-prospace/service/transnum"
 	"github.com/sirupsen/logrus"
 )
 
@@ -13,16 +14,21 @@ func main() {
 	// setup repository
 
 	// setup service
-	sr := tnService.ServiceTransnum{}
-	sr.AddGalacticUnit("glob", 'I')
-	sr.AddGalacticUnit("prok", 'V')
-	sr.AddGalacticUnit("pish", 'X')
-	sr.AddGalacticUnit("tegj", 'L')
+	sTnum := servTnum.ServiceTransnum{}
+	sTnum.AddGalacticUnit("glob", 'I')
+	sTnum.AddGalacticUnit("prok", 'V')
+	sTnum.AddGalacticUnit("pish", 'X')
+	sTnum.AddGalacticUnit("tegj", 'L')
 
-	fmt.Println(sr.GalaticToInt([]string{"glob", "glob"}))
-	fmt.Println(sr.GalaticToInt([]string{"glob", "prok"}))
-	fmt.Println(sr.GalaticToInt([]string{"pish", "pish"}))
-	fmt.Println(sr.GalaticToInt([]string{"lolo", "kkkk"}))
+	sRsrc := servRsrc.ServiceResource{}
+	sRsrc.AddResourcePrice("Silver", sTnum.MustGalaticToInt([]string{"glob", "glob"}), 34)
+	sRsrc.AddResourcePrice("Gold", sTnum.MustGalaticToInt([]string{"glob", "prok"}), 57800)
+	sRsrc.AddResourcePrice("Iron", sTnum.MustGalaticToInt([]string{"pish", "pish"}), 3910)
+	sRsrc.AddResourcePrice("Pourage", sTnum.MustGalaticToInt([]string{"lolo", "kkkk"}), 123)
+
+	fmt.Println(sRsrc.GetResourcePrice(sTnum.MustGalaticToInt([]string{"glob", "prok"}), "Silver"))
+	fmt.Println(sRsrc.GetResourcePrice(sTnum.MustGalaticToInt([]string{"glob", "prok"}), "Gold"))
+	fmt.Println(sRsrc.GetResourcePrice(sTnum.MustGalaticToInt([]string{"glob", "prok"}), "Iron"))
 
 	// setup delivery
 

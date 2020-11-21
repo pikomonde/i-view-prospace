@@ -126,6 +126,38 @@ func TestGalacticToInt(t *testing.T) {
 	}
 }
 
+func TestMustGalaticToInt(t *testing.T) {
+	dict := getDict()
+
+	// Populate galacticUnit to service
+	dictReverse := make(map[rune]string)
+	sNum := transnum.ServiceTransnum{}
+	for k, v := range dict {
+		sNum.AddGalacticUnit(k, v)
+		dictReverse[v] = k
+	}
+
+	// Positive testing
+	for k, v := range testCasesRoman() {
+		words := make([]string, 0)
+		for _, w := range k {
+			words = append(words, dictReverse[w])
+		}
+		res := sNum.MustGalaticToInt(words)
+		assert.Equal(t, v, res)
+	}
+
+	// Negative testing
+	for k, v := range testCasesErrorRoman() {
+		words := make([]string, 0)
+		for _, w := range k {
+			words = append(words, dictReverse[w])
+		}
+		res := sNum.MustGalaticToInt(words)
+		assert.Equal(t, v, res)
+	}
+}
+
 func TestIsRomanChar(t *testing.T) {
 	testCases := map[rune]bool{
 		'I': true,
