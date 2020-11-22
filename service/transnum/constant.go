@@ -37,8 +37,11 @@ const (
 
 type dictionary map[string]roman
 
-// ErrInvalidRoman is returned when there is invalid roman character found.
-var ErrInvalidRoman = errors.New("Invalid roman character found")
+// ErrInvalidRomanFound is returned when there is invalid roman character found.
+var ErrInvalidRomanFound = errors.New("Invalid roman character found")
 
-// ErrInvalidGalacticUnit is returned when galactic unit is not found in dictionary.
-var ErrInvalidGalacticUnit = errors.New("Invalid galactic unit found")
+// ErrInvalidRomanStructure is returned when there is invalid roman numeral found.
+var ErrInvalidRomanStructure = errors.New("Invalid roman numeral")
+
+// ErrInvalidGalacticUnitFound is returned when galactic unit is not found in dictionary.
+var ErrInvalidGalacticUnitFound = errors.New("Invalid galactic unit found")

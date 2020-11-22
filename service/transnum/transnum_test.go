@@ -48,9 +48,23 @@ func testCasesRoman() map[string]int {
 	}
 }
 
-func testCasesErrorRoman() map[string]int {
-	return map[string]int{
-		"-": 0,
+func testCasesErrorRoman() map[string]error {
+	return map[string]error{
+		"I-I":   transnum.ErrInvalidRomanFound,
+		"IM":    transnum.ErrInvalidRomanStructure,
+		"IIV":   transnum.ErrInvalidRomanStructure,
+		"XIIII": transnum.ErrInvalidRomanStructure,
+		"DD":    transnum.ErrInvalidRomanStructure,
+	}
+}
+
+func testCasesErrorGalactic() map[string]error {
+	return map[string]error{
+		"I-I":   transnum.ErrInvalidGalacticUnitFound,
+		"IM":    transnum.ErrInvalidRomanStructure,
+		"IIV":   transnum.ErrInvalidRomanStructure,
+		"XIIII": transnum.ErrInvalidRomanStructure,
+		"DD":    transnum.ErrInvalidRomanStructure,
 	}
 }
 
@@ -83,19 +97,23 @@ func TestRomanToInt(t *testing.T) {
 
 	// Positive testing
 	for k, v := range testCasesRoman() {
-		assert.Equal(t, v, sNum.RomanToInt(k))
+		decimal, err := sNum.RomanToInt(k)
+		assert.Equal(t, v, decimal)
+		assert.Equal(t, nil, err)
 	}
 
 	// Negative testing
 	for k, v := range testCasesErrorRoman() {
-		assert.Equal(t, v, sNum.RomanToInt(k))
+		decimal, err := sNum.RomanToInt(k)
+		assert.Equal(t, 0, decimal)
+		assert.Equal(t, v, err)
 	}
 }
 
 func TestGalacticToInt(t *testing.T) {
 	dict := getDict()
 
-	// Populate galacticUnit to service
+	// Populate Galactic Units to service
 	dictReverse := make(map[rune]string)
 	sNum := transnum.New()
 	for k, v := range dict {
@@ -115,21 +133,21 @@ func TestGalacticToInt(t *testing.T) {
 	}
 
 	// Negative testing
-	for k, v := range testCasesErrorRoman() {
+	for k, v := range testCasesErrorGalactic() {
 		words := make([]string, 0)
 		for _, w := range k {
 			words = append(words, dictReverse[w])
 		}
 		res, err := sNum.GalaticToInt(words)
-		assert.Equal(t, v, res)
-		assert.Equal(t, transnum.ErrInvalidGalacticUnit, err)
+		assert.Equal(t, 0, res)
+		assert.Equal(t, v, err)
 	}
 }
 
 func TestMustGalaticToInt(t *testing.T) {
 	dict := getDict()
 
-	// Populate galacticUnit to service
+	// Populate Galactic Units to service
 	dictReverse := make(map[rune]string)
 	sNum := transnum.New()
 	for k, v := range dict {
@@ -148,13 +166,13 @@ func TestMustGalaticToInt(t *testing.T) {
 	}
 
 	// Negative testing
-	for k, v := range testCasesErrorRoman() {
+	for k := range testCasesErrorGalactic() {
 		words := make([]string, 0)
 		for _, w := range k {
 			words = append(words, dictReverse[w])
 		}
 		res := sNum.MustGalaticToInt(words)
-		assert.Equal(t, v, res)
+		assert.Equal(t, 0, res)
 	}
 }
 
@@ -202,7 +220,7 @@ func TestAddGalacticUnitNegative(t *testing.T) {
 	sNum := transnum.New()
 	for k, v := range errorDict {
 		err := sNum.AddGalacticUnit(k, v)
-		assert.Equal(t, transnum.ErrInvalidRoman, err)
+		assert.Equal(t, transnum.ErrInvalidRomanFound, err)
 	}
 	assert.Equal(t, 0, len(sNum.Dict))
 
