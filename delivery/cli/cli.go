@@ -3,7 +3,7 @@ package cli
 import (
 	"bufio"
 	"fmt"
-	"os"
+	"io"
 
 	"github.com/pikomonde/i-view-prospace/helper/log"
 	servPars "github.com/pikomonde/i-view-prospace/service/parser"
@@ -12,13 +12,14 @@ import (
 // Cli is used to contains cli delivery
 type Cli struct {
 	ServiceParser *servPars.ServiceParser
+	IOReader      io.Reader
 }
 
 // Start starts Cli delivery
 func (c *Cli) Start() {
 	sPars := c.ServiceParser
 
-	scanner := bufio.NewScanner(os.Stdin)
+	scanner := bufio.NewScanner(c.IOReader)
 	for scanner.Scan() {
 		out := sPars.Parse(scanner.Text())
 		if out != "" {

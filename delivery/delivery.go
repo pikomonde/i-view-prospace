@@ -1,6 +1,7 @@
 package delivery
 
 import (
+	"io"
 	"os"
 	"os/signal"
 	"syscall"
@@ -18,15 +19,20 @@ type Delivery struct {
 // Opt is used as an option for the app
 type Opt struct {
 	ServiceParser *servPars.ServiceParser
+	IOReader      io.Reader
 }
 
 // New returns the delivery
 func New(opt Opt) *Delivery {
 	cli := cli.Cli{
 		ServiceParser: opt.ServiceParser,
+		IOReader:      opt.IOReader,
 	}
 	if opt.ServiceParser == nil {
 		cli.ServiceParser = servPars.New()
+	}
+	if opt.IOReader == nil {
+		cli.IOReader = os.Stdin
 	}
 
 	return &Delivery{
