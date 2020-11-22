@@ -73,6 +73,12 @@ The architecture that is used in this project is Clean Code architecture, which 
 
     `make run < files/input01.txt > files/output01.txt`
 
+3. Static Web Page
+
+    You can also create a static web page by using wasm. This web page has different `main()` function than the Cli version. The `main()` function is located at `dist/wasm_app.go`
+    
+    Try running `make js-build-run`, then open yout browser at `http://localhost:8432`.
+
 # Parser Command
 
 Right now, the parser supports 4 commands:

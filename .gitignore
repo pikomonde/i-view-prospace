@@ -5,6 +5,7 @@
 *.so
 *.dylib
 service_app
+dist/main.wasm
 
 # Test binary, built with `go test -c`
 *.test

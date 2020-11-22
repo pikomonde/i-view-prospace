@@ -11,3 +11,10 @@ build-run:
 	go build -o service_app && ./service_app
 build:
 	go build -o service_app
+js-build:
+	GOOS=js GOARCH=wasm go build -o dist/main.wasm dist/wasm_app.go
+js-run:
+	http-server -p 8432 dist
+js-build-run:
+	GOOS=js GOARCH=wasm go build -o dist/main.wasm dist/wasm_app.go
+	http-server -p 8432 dist

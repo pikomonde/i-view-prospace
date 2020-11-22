@@ -1,0 +1,87 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="wasm_exec.js"></script>
+    <script>
+      function submitForm() {
+        let input = document.getElementById("input").value;
+        let output = parse(input);
+        let outputEl = document.getElementById("output");
+
+        let userOutputEl = createElement("user", input);
+        outputEl.appendChild(userOutputEl);
+        outputEl.scrollTop = outputEl.scrollHeight;
+        
+        let machineOutputEl = createElement("machine", output);
+        outputEl.appendChild(machineOutputEl);
+        outputEl.scrollTop = outputEl.scrollHeight;
+      }
+      function createElement(person, text) {
+        let div = document.createElement("div");
+        div.innerHTML = text;
+        if (person == "user") {
+          div.className = "user"
+        } else if (person == "machine") {
+          div.className = "machine"
+        }
+        return div
+      }
+      async function init() {
+          const go = new Go();
+          let result = await WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject)
+          go.run(result.instance);
+      }
+      init();
+     </script>
+     <style>
+       code {
+        font-family: monospace;
+        background-color: cadetblue;
+       }
+      .user {
+        color: green;
+      }
+      .machine {
+        color: red;
+      }
+      .container {
+        text-align: center;
+      }
+      #input {
+        margin-top: 4px;
+      }
+      #output, .guide {
+        height: 240px;
+        overflow-y: auto;
+        background-color: gainsboro;
+        padding: 12px;
+      }
+     </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="output"></div>
+      <form onsubmit="submitForm()"">
+        <input id="input" type="text">
+      </form>
+      <div class="guide">
+        <hr/>
+        <b>Galactic Unit Entry:</b> This is to assign galactic unit to a roman numeral character.<br/>
+        <b>Format:</b> <code>[galactic_unit_word] is [roman_numeral_character]</code><br/>
+        <b>Example:</b> <code>glob is I</code><br/>
+        <hr/>
+        <b>Resource Price Entry:</b> This is to assign resources and its price in Credits.<br/>
+        <b>Format:</b> <code>[galactic_unit] [resource_name] is [decimal_number] Credits</code><br/>
+        <b>Example:</b> <code>glob glob Silver is 34 Credits</code><br/>
+        <hr/>
+        <b>Galactic Unit Query:</b> This is to translate galactic unit to decimal.<br/>
+        <b>Format:</b> <code>how much is [galactic_unit_word] ?</code><br/>
+        <b>Example:</b> <code>how much is glob glob ?</code><br/>
+        <hr/>
+        <b>Resource Price Query:</b> This is to get and calculate resource's price based on previous resource price entry<br/>
+        <b>Format:</b> <code>how many Credits is [galactic_unit_word] [resource_name] ?</code><br/>
+        <b>Example:</b> <code>how many Credits is glob glob glob Silver ?</code><br/>
+      </div>
+    </div>
+  </body>
+</html>
