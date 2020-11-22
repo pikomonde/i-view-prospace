@@ -34,10 +34,14 @@
       init();
      </script>
      <style>
-       code {
+      html, body {
+        height: 100%;
+        margin: 0px;
+      }
+      code {
         font-family: monospace;
         background-color: cadetblue;
-       }
+      }
       .user {
         color: green;
       }
@@ -45,13 +49,28 @@
         color: red;
       }
       .container {
+        height: 100%;
         text-align: center;
+      }
+      .left {
+        height: 80%;
+        width: 50%;
+        float: left;
+      }
+      .right {
+        height: 100%;
+        margin-left: 50%;
       }
       #input {
         margin-top: 4px;
       }
-      #output, .guide {
-        height: 240px;
+      #output {
+        height: 80%;
+        overflow-y: auto;
+        background-color: gainsboro;
+        padding: 12px;
+      }
+      .guide {
         overflow-y: auto;
         background-color: gainsboro;
         padding: 12px;
@@ -60,11 +79,14 @@
   </head>
   <body>
     <div class="container">
-      <div id="output"></div>
-      <form onsubmit="submitForm()"">
-        <input id="input" type="text">
-      </form>
-      <div class="guide">
+      <div class="left">
+        <div id="output"></div>
+        <form action="#" onsubmit="submitForm()"">
+          <input id="input" type="text">
+        </form>
+      </div>
+      <div class="guide right">
+        <h3>Galactic Unit Conversion Guide</h3>
         <hr/>
         <b>Galactic Unit Entry:</b> This is to assign galactic unit to a roman numeral character.<br/>
         <b>Format:</b> <code>[galactic_unit_word] is [roman_numeral_character]</code><br/>
