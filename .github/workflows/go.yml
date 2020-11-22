@@ -30,7 +30,18 @@ jobs:
         fi
 
     - name: Build
-      run: go build -v .
+      run: make build
 
     - name: Test
       run: make test
+
+    - name: Build Web App
+      run: make js-build
+
+    - name: Deploy Web App 🚀
+      uses: JamesIves/github-pages-deploy-action@3.7.1
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: gh-pages # The branch the action should deploy to.
+        FOLDER: dist # The folder the action should deploy.
+        CLEAN: true # Automatically remove deleted files from the deploy branch
