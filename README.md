@@ -1,7 +1,7 @@
 # Galaxy Merchant Trading Guide
 Galaxy Merchant Trading Guide is an app that used to translate Galactic Unit to Decimal. This app also provides parser that parse a query sentence.
 
-See Demo Here: https://pikomonde.github.io/i-view-prospace/index.html?#
+See Demo Here: https://pikomonde.github.io/i-view-prospace
 
 See Requirement Documents Here: [files/Prospace_Backend_Code_Challenge.pdf](files/Prospace_Backend_Code_Challenge.pdf)
 
