@@ -3,18 +3,22 @@
     <meta charset="utf-8">
     <script src="wasm_exec.js"></script>
     <script>
-      function submitForm() {
-        let input = document.getElementById("input").value;
-        let output = parse(input);
-        let outputEl = document.getElementById("output");
+      function onDOMLoad() {
+        document.getElementById("formSubmit").addEventListener("submit", function(event){
+          event.preventDefault()
 
-        let userOutputEl = createElement("user", input);
-        outputEl.appendChild(userOutputEl);
-        outputEl.scrollTop = outputEl.scrollHeight;
-        
-        let machineOutputEl = createElement("machine", output);
-        outputEl.appendChild(machineOutputEl);
-        outputEl.scrollTop = outputEl.scrollHeight;
+          let input = document.getElementById("input").value;
+          let output = parse(input);
+          let outputEl = document.getElementById("output");
+
+          let userOutputEl = createElement("user", input);
+          outputEl.appendChild(userOutputEl);
+          outputEl.scrollTop = outputEl.scrollHeight;
+          
+          let machineOutputEl = createElement("machine", output);
+          outputEl.appendChild(machineOutputEl);
+          outputEl.scrollTop = outputEl.scrollHeight;
+        });
       }
       function createElement(person, text) {
         let div = document.createElement("div");
@@ -69,6 +73,9 @@
         overflow-y: auto;
         background-color: gainsboro;
         padding: 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
       }
       .guide {
         overflow-y: auto;
@@ -81,7 +88,7 @@
     <div class="container">
       <div class="left">
         <div id="output"></div>
-        <form action="#" onsubmit="submitForm()"">
+        <form id="formSubmit">
           <input id="input" type="text">
         </form>
       </div>
@@ -105,5 +112,6 @@
         <b>Example:</b> <code>how many Credits is glob glob glob Silver ?</code><br/>
       </div>
     </div>
+    <script>onDOMLoad()</script>
   </body>
 </html>
