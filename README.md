@@ -3,6 +3,8 @@ Galaxy Merchant Trading Guide is an app that used to translate Galactic Unit to 
 
 See Demo Here: https://pikomonde.github.io/i-view-prospace/index.html?#
 
+See Requirement Documents Here: [files/Prospace_Backend_Code_Challenge.pdf](files/Prospace_Backend_Code_Challenge.pdf)
+
 # Make Command
 
 1. `make test`
@@ -20,6 +22,19 @@ See Demo Here: https://pikomonde.github.io/i-view-prospace/index.html?#
 4. `make build`
 
     Generate an executable file named `service_app`.
+
+5. `make js-build`
+
+    Generate a .wasm (Web Assembly) file for the app.
+
+6. `make js-run`
+
+    Run a server to server single page web app.
+
+7. `make js-build-run`
+
+    Generate a .wasm (Web Assembly) file and then serve it for the web app.
+
 
 # Project Structure
 
@@ -57,6 +72,10 @@ The architecture that is used in this project is Clean Code architecture, which 
 
 - Go 1.11+ (go module support)
 
+- http-server
+
+    `npm install -g http-server`
+
 ## Build and Run the Project
 
 1. Command Line Interface
@@ -77,7 +96,7 @@ The architecture that is used in this project is Clean Code architecture, which 
 
 3. Static Web Page
 
-    You can also create a static web page by using wasm. This web page has different `main()` function than the Cli version. The `main()` function is located at `dist/wasm_app.go`
+    You can also create a static web page by using wasm (web assembly). This web page has different `main()` function than the Cli version. The `main()` function is located at `dist/wasm_app.go`
     
     Try running `make js-build-run`, then open yout browser at `http://localhost:8432`.
 
