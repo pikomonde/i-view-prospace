@@ -52,6 +52,8 @@ func testCasesErrorRoman() map[string]error {
 	return map[string]error{
 		"I-I":   transnum.ErrInvalidRomanFound,
 		"IM":    transnum.ErrInvalidRomanStructure,
+		"XM":    transnum.ErrInvalidRomanStructure,
+		"DM":    transnum.ErrInvalidRomanStructure,
 		"IIV":   transnum.ErrInvalidRomanStructure,
 		"XIIII": transnum.ErrInvalidRomanStructure,
 		"DD":    transnum.ErrInvalidRomanStructure,
@@ -62,6 +64,8 @@ func testCasesErrorGalactic() map[string]error {
 	return map[string]error{
 		"I-I":   transnum.ErrInvalidGalacticUnitFound,
 		"IM":    transnum.ErrInvalidRomanStructure,
+		"XM":    transnum.ErrInvalidRomanStructure,
+		"DM":    transnum.ErrInvalidRomanStructure,
 		"IIV":   transnum.ErrInvalidRomanStructure,
 		"XIIII": transnum.ErrInvalidRomanStructure,
 		"DD":    transnum.ErrInvalidRomanStructure,

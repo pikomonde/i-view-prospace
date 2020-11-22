@@ -2,44 +2,25 @@ package transnum
 
 // RomanToInt is used to translate roman numeric in string to integer
 func (s *ServiceTransnum) RomanToInt(str string) (int, error) {
-	prevChar := ' '
+	// Validate roman structure
+	if !s.IsValidRoman(str) {
+		return 0, ErrInvalidRomanStructure
+	}
+
 	prevCharVal := 0
-	curLargestVal := 0
 	total := 0
-	// TODO: move roman validation to another function?
-	countSameConsecutiveChar := 0
 	for i := len(str) - 1; i >= 0; i-- {
-		// Validate roman numeric
-		curChar := rune(str[i])
-		curCharVal := roman(curChar).Int()
-		if !s.IsRomanChar(curChar) {
+		// Validate roman character
+		if !s.IsRomanChar(rune(str[i])) {
 			return 0, ErrInvalidRomanFound
 		}
 
-		if curCharVal > prevCharVal {
-			curLargestVal = curCharVal
-			countSameConsecutiveChar = 1
-			total += curCharVal
-		} else if (curCharVal == prevCharVal) && (curLargestVal == curCharVal) {
-			if (curChar == 'V') || (curChar == 'L') || (curChar == 'D') {
-				return 0, ErrInvalidRomanStructure
-			}
-			countSameConsecutiveChar++
-			if countSameConsecutiveChar > 3 {
-				return 0, ErrInvalidRomanStructure
-			}
+		curCharVal := roman(str[i]).Int()
+		if curCharVal >= prevCharVal {
 			total += curCharVal
 		} else {
-			if (curChar == 'I') && ((prevChar != 'V') && (prevChar != 'X')) ||
-				(curChar == 'X') && ((prevChar != 'L') && (prevChar != 'C')) ||
-				(curChar == 'C') && ((prevChar != 'D') && (prevChar != 'M')) ||
-				(curChar == 'V') || (curChar == 'L') || (curChar == 'D') {
-				return 0, ErrInvalidRomanStructure
-			}
-			countSameConsecutiveChar = 1
 			total -= curCharVal
 		}
-		prevChar = curChar
 		prevCharVal = curCharVal
 	}
 	return total, nil
@@ -99,4 +80,53 @@ func (s *ServiceTransnum) AddGalacticUnit(galacticUnit string, r rune) error {
 	}
 	s.Dict[galacticUnit] = roman(r)
 	return nil
+}
+
+// IsValidRoman is used to check whether a roman numeral valid or not
+func (s *ServiceTransnum) IsValidRoman(str string) bool {
+	prevChar := ' '
+	prevCharVal := 0
+	curLargestVal := 0
+	countSameConsecutiveChar := 0
+	for i := len(str) - 1; i >= 0; i-- {
+		// Initialize curChar and curCharVal
+		curChar := rune(str[i])
+		curCharVal := roman(curChar).Int()
+
+		if curCharVal > prevCharVal {
+			curLargestVal = curCharVal
+			countSameConsecutiveChar = 1
+		} else if curCharVal == prevCharVal {
+			// Rule: Same char cannot be used as addition after substraction, ex: IIV
+			if curLargestVal != curCharVal {
+				return false
+			}
+
+			// Rule: 'D', 'L', 'V' can not be repeated, ex: DD
+			if (curChar == 'V') || (curChar == 'L') || (curChar == 'D') {
+				return false
+			}
+
+			// Rule: 'I', 'X', 'C', 'M' can not be repeated more than 3 times, ex: XIIII
+			countSameConsecutiveChar++
+			if countSameConsecutiveChar > 3 {
+				return false
+			}
+		} else {
+			// 'I' can not be substracted from character other than 'V' and 'X', ex: IM
+			// 'X' can not be substracted from character other than 'L' and 'C', ex: XM
+			// 'C' can not be substracted from character other than 'D' and 'M', ex: C? (we can remove this validation)
+			// 'V', 'L', and 'D' can not be used to substract other character, ex: DM
+			if (curChar == 'I') && ((prevChar != 'V') && (prevChar != 'X')) ||
+				(curChar == 'X') && ((prevChar != 'L') && (prevChar != 'C')) ||
+				(curChar == 'C') && ((prevChar != 'D') && (prevChar != 'M')) ||
+				(curChar == 'V') || (curChar == 'L') || (curChar == 'D') {
+				return false
+			}
+			countSameConsecutiveChar = 1
+		}
+		prevChar = curChar
+		prevCharVal = curCharVal
+	}
+	return true
 }
