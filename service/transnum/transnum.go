@@ -4,6 +4,7 @@ package transnum
 func (s *ServiceTransnum) RomanToInt(str string) int {
 	prevCharVal := 0
 	total := 0
+	// TODO: validate wrong cases such as IM, IIV, XIIII, DD
 	for i := len(str) - 1; i >= 0; i-- {
 		curCharVal := roman(str[i]).Int()
 		if curCharVal >= prevCharVal {
@@ -20,6 +21,7 @@ func (s *ServiceTransnum) RomanToInt(str string) int {
 func (s *ServiceTransnum) GalaticToInt(words []string) (int, error) {
 	prevCharVal := 0
 	total := 0
+	// TODO: validate wrong cases such as IM, IIV, XIIII, DD
 	for i := len(words) - 1; i >= 0; i-- {
 		curChar, ok := s.Dict[words[i]]
 		if !ok {
