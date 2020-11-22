@@ -2,6 +2,9 @@
 .SILENT:run
 .SILENT:build-run
 .SILENT:build
+.SILENT:js-build
+.SILENT:js-run
+.SILENT:js-build-run
 
 test:
 	go test ./... -coverprofile cover.out && go tool cover -func cover.out
