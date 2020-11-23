@@ -1,4 +1,7 @@
 # Galaxy Merchant Trading Guide
+
+[![Build Actions Status](https://github.com/pikomonde/i-view-prospace/workflows/Go/badge.svg)](https://github.com/pikomonde/i-view-prospace/actions)
+
 Galaxy Merchant Trading Guide is an app that used to translate Galactic Unit to Decimal. This app also provides parser that parse a query sentence.
 
 See Demo Here: https://pikomonde.github.io/i-view-prospace
