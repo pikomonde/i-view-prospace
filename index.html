@@ -41,6 +41,7 @@
       html, body {
         height: 100%;
         margin: 0px;
+        background-color: black;
       }
       code {
         font-family: monospace;
@@ -53,16 +54,26 @@
         color: red;
       }
       .container {
+        background-color: black;
         height: 100%;
         text-align: center;
+        margin: 0 auto;
+      }
+      .container-width {
+        width: 100%;
+      }
+      @media (min-width: 800px) {
+        .container-width {
+        width: 60%;
+        }
       }
       .left {
-        height: 80%;
+        height: 90%;
         width: 50%;
         float: left;
       }
       .right {
-        height: 100%;
+        height: 90%;
         margin-left: 50%;
       }
       #input {
@@ -75,17 +86,24 @@
         padding: 12px;
         display: flex;
         flex-direction: column;
-        justify-content: flex-end;
+        /* justify-content: flex-end; */
+        border-style: inset;
+        border-width: thick;
+        border-color: cadetblue;
+      }
+      #output > :first-child {
+        margin-top: auto !important;
       }
       .guide {
         overflow-y: auto;
-        background-color: gainsboro;
+        background-color: beige;
         padding: 12px;
+        border-style: dashed;
       }
      </style>
   </head>
   <body>
-    <div class="container">
+    <div class="container container-width">
       <div class="left">
         <div id="output"></div>
         <form id="formSubmit">
